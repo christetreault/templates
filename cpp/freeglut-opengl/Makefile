@@ -1,9 +1,10 @@
 .DEFAULT_GOAL := all
 
 PROG_NAME = template
+SRC_DIR = src
 
 CC_FLAGS = -g -Wall -std=c++11
-CC_FILES = src/main.cpp
+OBJ_FILES = main.o
 CC = g++
 
 PKG_CONFIG_LIBS = gl glu glew
@@ -16,8 +17,11 @@ INCLUDE = $(MANUAL_INCLUDE) $(shell pkg-config --cflags $(PKG_CONFIG_INCLUDE))
 
 all : build
 
-build : $(CC_FILES)
-	$(CC) -o $(PROG_NAME) $(CC_FILES) $(CC_FLAGS) $(INCLUDE) $(LIBS)
+build : $(OBJ_FILES)
+	$(CC) -o $(PROG_NAME) $(OBJ_FILES) $(CC_FLAGS) $(INCLUDE) $(LIBS)
+
+main.o : $(SRC_DIR)/main.cpp
+	$(CC) -c $(SRC_DIR)/main.cpp $(CC_FLAGS) $(INCLUDE) $(LIBS)
 
 clean :
 	$(RM) *.o
