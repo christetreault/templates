@@ -3,7 +3,7 @@
 PROG_NAME = template
 SRC_DIR = src
 
-CC_FLAGS = -g -Wall -std=c++11
+CC_FLAGS = -g -Wall -Wconversion -std=c++11
 OBJ_FILES = main.o
 CC = g++
 
