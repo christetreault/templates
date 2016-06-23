@@ -16,13 +16,17 @@ PKG_CONFIG_INCLUDE = gl glu glew glfw3
 MANUAL_INCLUDE =
 INCLUDE = $(MANUAL_INCLUDE) $(shell pkg-config --cflags $(PKG_CONFIG_INCLUDE))
 
+# ----------------------------------------------------------
+# --- Targets ----------------------------------------------
+# ----------------------------------------------------------
+
 all : build
 
 build : $(OBJ_FILES)
 	$(CC) -o $(PROG_NAME) $(OBJ_FILES) $(CC_FLAGS) $(INCLUDE) $(LIBS)
 
 main.o : $(SRC_DIR)/main.cpp
-	$(CC) -c $(SRC_DIR)/main.cpp $(CC_FLAGS) $(INCLUDE) $(LIBS)
+	$(call compile,main.cpp)
 
 clean :
 	$(RM) *.o
@@ -31,3 +35,9 @@ clean :
 	$(RM) $(PROG_NAME)
 	$(RM) $(SRC_DIR)/*~
 	$(RM) $(RES_DIR)/*~
+
+# ----------------------------------------------------------
+# --- Functions --------------------------------------------
+# ----------------------------------------------------------
+
+compile = $(CC) -c $(SRC_DIR)/$(1) $(CC_FLAGS) $(INCLUDE) $(LIBS)
